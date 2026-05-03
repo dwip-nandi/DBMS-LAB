@@ -15,3 +15,11 @@ SELECT * from authors where state='CA' and city='Oakland' ----execute multiple c
 SELECT title from titles Where ytd_sales>8000
 --task2--->
 SELECT title from titles where royalty>=12 and royalty<=24
+
+-------------------3--------------
+SELECT * FROM table_name ORDER BY column_name(which column use sorting) DESC ---- decreasing odred data from table
+SELECT * FROM table_name ORDER BY column_name(which column use sorting) ASC  ---- inceassing order data from table
+SELECT * FROM TITLES ORDER BY column1, column2 DESC ----- use order multiple columen
+
+----------------4--------------
+
