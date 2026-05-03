@@ -34,3 +34,26 @@ WHERE au_id IN (
         WHERE royalty = (SELECT MAX(royalty) FROM titles)
     )
 )
+
+---------------4---------
+-------create table
+CREATE TABLE Item (
+    item_id CHAR(6) PRIMARY KEY CHECK (item_id LIKE 'P[0-9][0-9][0-9][0-9][0-9]'),
+    item_name CHARACTER(12),
+    item_category CHARACTER(10),
+    item_price FLOAT(12) CHECK (item_price >= 0),
+    item_qoh INTEGER CHECK (item_qoh >= 0),
+    item_last_sold DATE DEFAULT GETDATE()
+);
+
+
+------------------5----------
+--task4------(insert data)
+CREATE TABLE Transactions (
+    tran_id CHARACTER(10) PRIMARY KEY CHECK (tran_id LIKE 'T[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+    item_id CHARACTER(6) FOREIGN KEY REFERENCES Item(item_id),
+    cust_id CHARACTER(5), -- এখানে কাস্টমার টেবিলের রেফারেন্স দেওয়া লাগবে
+    tran_type CHARACTER(1) CHECK (tran_type IN ('S', 'O')),
+    tran_quantity INTEGER CHECK (tran_quantity > 0),
+    tran_date DATETIME DEFAULT GETDATE()
+);
