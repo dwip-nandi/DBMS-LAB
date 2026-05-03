@@ -29,5 +29,17 @@ SELECT SUM(PRICE) FROM TITLES ---- show total value
 SELECT COUNT(*) FROM TITLES   ---- total no of elements or records
 
 ---------------5---------------
+SELECT type, AVG(price) 
+FROM titles 
+GROUP BY type
 
+---------------6----------------
+--task3-----
+SELECT type, AVG(price) AS Average_Price, SUM(ytd_sales) AS Total_Yearly_Sales
+FROM titles
+GROUP BY type;
+
+--------------7----------------
+SELECT "Name" = SUBSTRING(au_fname, 1, 1) + '.' + au_lname, phone 
+FROM authors
 
