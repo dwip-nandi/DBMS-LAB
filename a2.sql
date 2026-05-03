@@ -36,6 +36,20 @@ WHERE au_id IN (
 )
 
 ---------------4---------
+---- create table ----------
+CREATE TABLE CustomersAndSuppliers(
+     cust_id char(6) PRIMARY KEY CHECK(cust_id like '[CS][0-9][0-9][0-9][0-9][0-9]'),
+     cust_fnamee char(15) NOT NULL,
+     cust_lname  varchar(15),
+     cust_address text,
+     cust_telno char(12) CHECK (cust_telno LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+     cust_city char(12) default 'RAJSHAHI',
+     sales_amnt money check (sales_amnt>=0),
+     proc_amnt money check (proc_amnt>=0)
+);
+
+
+------------------5----------
 -------create table
 CREATE TABLE Item (
     item_id CHAR(6) PRIMARY KEY CHECK (item_id LIKE 'P[0-9][0-9][0-9][0-9][0-9]'),
@@ -46,8 +60,6 @@ CREATE TABLE Item (
     item_last_sold DATE DEFAULT GETDATE()
 );
 
-
-------------------5----------
 --task4------(insert data)
 CREATE TABLE Transactions (
     tran_id CHARACTER(10) PRIMARY KEY CHECK (tran_id LIKE 'T[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
