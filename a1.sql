@@ -22,4 +22,12 @@ SELECT * FROM table_name ORDER BY column_name(which column use sorting) ASC  ---
 SELECT * FROM TITLES ORDER BY column1, column2 DESC ----- use order multiple columen
 
 ----------------4--------------
+SELECT MAX(PRICE) FROM TITLES ---- show maximum value
+SELECT MIN(PRICE) FROM TITLES ---- show minimum value
+SELECT AVG(PRICE) FROM TITLES ---- show average value
+SELECT SUM(PRICE) FROM TITLES ---- show total value
+SELECT COUNT(*) FROM TITLES   ---- total no of elements or records
+
+---------------5---------------
+
 
