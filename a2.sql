@@ -19,3 +19,18 @@ INNER JOIN publishers ON titles.pub_id = publishers.pub_id;
 SELECT authors.au_fname, authors.au_lname, authors.city, publishers.pub_name, publishers.city
 FROM authors, publishers
 WHERE authors.city = publishers.city;
+
+-------------------3----------------
+---task3---
+--iv
+SELECT au_fname, au_lname 
+FROM authors 
+WHERE au_id IN (
+    SELECT au_id 
+    FROM titleauthor 
+    WHERE title_id IN (
+        SELECT title_id 
+        FROM titles 
+        WHERE royalty = (SELECT MAX(royalty) FROM titles)
+    )
+)
