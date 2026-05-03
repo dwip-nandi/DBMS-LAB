@@ -60,7 +60,6 @@ CREATE TABLE Item (
     item_last_sold DATE DEFAULT GETDATE()
 );
 
---task4------(insert data)
 CREATE TABLE Transactions (
     tran_id CHARACTER(10) PRIMARY KEY CHECK (tran_id LIKE 'T[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
     item_id CHARACTER(6) FOREIGN KEY REFERENCES Item(item_id),
