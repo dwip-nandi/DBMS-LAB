@@ -42,7 +42,7 @@ CREATE TABLE CustomersAndSuppliers(
      cust_fnamee char(15) NOT NULL,
      cust_lname  varchar(15),
      cust_address text,
-     cust_telno char(12) CHECK (cust_telno LIKE '[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
+     cust_telno char(12) CHECK (cust_telno LIKE '[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]'),
      cust_city char(12) default 'RAJSHAHI',
      sales_amnt money check (sales_amnt>=0),
      proc_amnt money check (proc_amnt>=0)
