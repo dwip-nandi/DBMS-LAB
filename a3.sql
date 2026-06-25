@@ -65,3 +65,59 @@ BEGIN
 END
 
 EXEC update_price 'MC3021';
+
+-- task1
+CREATE PROC sp_GetCategoryReport
+AS
+BEGIN
+    SELECT 
+        item_category AS [Category], 
+        COUNT(item_id) AS [Total number of items], 
+        AVG(item_price) AS [Average Price]
+    FROM 
+        Item
+    GROUP BY 
+        item_category;
+END;
+
+
+-- task2
+CREATE PROC sp_GetCheaperItems
+    @category VARCHAR(10),  -- প্রথম ইনপুট: ক্যাটাগরির নাম
+    @price_val FLOAT        -- দ্বিতীয় ইনপুট: দামের মান
+AS
+BEGIN
+    SELECT * FROM Item
+    WHERE item_category = @category 
+      AND item_price < @price_val;
+END;
+
+-- উদাহরণ: 'Software' ক্যাটাগরির ৫০০ টাকার কম দামি আইটেমগুলো দেখতে চাইলে
+EXEC sp_GetCheaperItems 'Software', 500;
+
+---task3
+CREATE PROC sp_IncreaseCategoryPrice
+    @category VARCHAR(10),       -- প্রথম ইনপুট: ক্যাটাগরির নাম
+    @desired_avg FLOAT           -- দ্বিতীয় ইনপুট: কাঙ্ক্ষিত গড় দাম
+AS
+BEGIN
+    DECLARE @current_avg FLOAT
+    
+    -- লুপ চালানোর সুবিধার্থে প্রথমে ওই ক্যাটাগরির বর্তমান গড় দাম বের করে নিচ্ছি
+    SELECT @current_avg = AVG(item_price) FROM Item WHERE item_category = @category;
+    
+    -- লুপ সেকশন: যতক্ষণ বর্তমান গড় দাম কাঙ্ক্ষিত মানের চেয়ে কম থাকবে, লুপ চলবে
+    WHILE @current_avg < @desired_avg
+    BEGIN
+        -- ওই নির্দিষ্ট ক্যাটাগরির প্রতিটি আইটেমের দাম ১০% বাড়িয়ে আপডেট করা হচ্ছে
+        UPDATE Item 
+        SET item_price = item_price + (0.1 * item_price) 
+        WHERE item_category = @category;
+        
+        -- দাম বাড়ানোর পর নতুন গড় দাম কত হলো তা পুনরায় হিসাব করে ভেরিয়েবলে রাখছি
+        SELECT @current_avg = AVG(item_price) FROM Item WHERE item_category = @category;
+    END
+END;
+
+-- উদাহরণ: 'Books' ক্যাটাগরির আইটেমগুলোর গড় দাম বাড়িয়ে ৫০০ টাকা পর্যন্ত নিতে চাইলে:
+EXEC sp_IncreaseCategoryPrice 'Books', 500;

@@ -66,5 +66,6 @@ CREATE TABLE Transactions (
     cust_id CHARACTER(5), -- এখানে কাস্টমার টেবিলের রেফারেন্স দেওয়া লাগবে
     tran_type CHARACTER(1) CHECK (tran_type IN ('S', 'O')),
     tran_quantity INTEGER CHECK (tran_quantity > 0),
-    tran_date DATETIME DEFAULT GETDATE()
+    tran_date DATETIME DEFAULT GETDATE(),
+    tran_time TIME DEFAULT CAST(GETDATE() AS TIME),
 );
